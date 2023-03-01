@@ -1,4 +1,5 @@
 //* https://stackoverflow.com/a/73977534 - Enable TailwindCSS completions
+//* https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene
 
 import { StatusBar } from 'expo-status-bar';
 import tw, { useDeviceContext } from 'twrnc';
