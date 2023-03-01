@@ -1,20 +1,15 @@
+//* https://stackoverflow.com/a/73977534 - Enable TailwindCSS completions
+
 import { StatusBar } from 'expo-status-bar';
+import tw, { useDeviceContext } from 'twrnc';
 import { StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
+  useDeviceContext(tw);
   return (
-    <View style={styles.container}>
+    <View style={tw`flex h-screen bg-red-600 items-center justify-center`}>
       <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <StatusBar style='auto' />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
