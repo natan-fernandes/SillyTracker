@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "SpacePlanner",
-    "slug": "SpacePlanner",
+    "name": "SillyTracking",
+    "slug": "SillyTracking",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
