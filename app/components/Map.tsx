@@ -3,7 +3,7 @@ import * as Location from 'expo-location';
 import { useEffect, useState } from 'react';
 import { Marker as MarkerType } from '../types';
 import { View, Dimensions } from 'react-native';
-import MapView, { Circle, Marker, Region } from 'react-native-maps';
+import MapView, { Circle, LatLng, Marker, Polyline, Region } from 'react-native-maps';
 
 interface MapProps {
   markers: MarkerType[]
@@ -13,10 +13,7 @@ export const Map = (props: MapProps) => {
   const [region, setRegion] = useState<Region>(null);
   const [zoomLevel, setZoomLevel] = useState<number>(0);
 
-
   useEffect(() => {
-    
-
     const getLocation = async () => {
       await Location.requestForegroundPermissionsAsync();
       return await Location.getCurrentPositionAsync();
@@ -42,6 +39,13 @@ export const Map = (props: MapProps) => {
     setZoomLevel(zoomLevel);
   }
 
+  //* Doesn't seem to work with spread operator!
+  const getPolylineCoords = (): LatLng[] => {
+    const coords: LatLng[] = [];
+    props.markers.map(marker => coords.push(marker));
+    return coords;
+  }
+
   if (!region) return null;
 
   return (
@@ -51,15 +55,21 @@ export const Map = (props: MapProps) => {
         initialRegion={region}
         onRegionChangeComplete={updateZoomLevel}
       >
+        <Polyline
+          coordinates={getPolylineCoords()}
+          fillColor="#DC262650"
+          strokeColor='#DC2626'
+          strokeWidth={10}
+        />
         <Circle
           center={{...region}}
-          radius={3000000 / (2 ** zoomLevel)}
+          radius={2500000 / (2 ** zoomLevel)}
           fillColor='#00BFFF'
-          strokeWidth={10}
           strokeColor='#00BFFF50'
+          strokeWidth={10}
         />
         {
-          props.markers?.map((marker, index) => 
+          props.markers.map((marker, index) => 
             <Marker
               key={index}
               coordinate={{...marker}}

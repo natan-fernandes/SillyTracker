@@ -3,11 +3,12 @@ import { Marker } from '../types/marker';
 
 const getAll = async (): Promise<Marker[]> => {
   const data = await AsyncStorage.getItem('@markers');
-  return JSON.parse(data);
+  const objects = JSON.parse(data);
+  return objects ?? [];
 }
 
 const add = async (marker: Marker) => {
-  const markers = await getAll() ?? [];
+  const markers = await getAll();
   const newMarkers = [...markers, marker];
   const data = JSON.stringify(newMarkers);
 

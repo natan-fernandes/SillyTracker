@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react';
+import tw from 'twrnc'
 import { Marker } from '../types';
 import { View } from 'react-native'
+import { useState, useEffect } from 'react';
 import { BottomBar } from '../components/BottomBar'
-import { Map as MapComponent } from '../components/Map';
 import { markerStorage } from '../data/markerStorage';
+import { Map as MapComponent } from '../components/Map';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export const Map = () => {
   const [markers, setMarkers] = useState<Marker[]>();
@@ -17,7 +19,7 @@ export const Map = () => {
   }, []);
 
   return (
-    <View>
+    <SafeAreaView>
       <BottomBar
         markers={markers}
         setMarkers={setMarkers}
@@ -25,6 +27,6 @@ export const Map = () => {
       <MapComponent 
         markers={markers}
       />
-    </View>
+    </SafeAreaView>
   )
 }
