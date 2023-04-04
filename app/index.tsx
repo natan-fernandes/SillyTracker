@@ -1,15 +1,14 @@
 import { View, Text } from 'react-native';
-import { Map } from './components/Map';
 import { StatusBar } from 'expo-status-bar';
 import tw, { useDeviceContext } from 'twrnc';
-import { BottomBar } from './components/BottomBar';
+import { Map } from './pages/Map';
 
-export const Main = () => {
+
+export default function Page() {
   useDeviceContext(tw);
   return (
     <View style={tw`relative flex h-full w-full`}>
       <StatusBar style='auto' />
-      <BottomBar/>
       <Map/>
     </View>
   );

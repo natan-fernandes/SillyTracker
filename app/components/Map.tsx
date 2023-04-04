@@ -1,32 +1,27 @@
 import tw from 'twrnc';
-import { Marker as MarkerType } from '../types';
 import * as Location from 'expo-location';
-import { View, Text, Dimensions } from 'react-native';
 import { useEffect, useState } from 'react';
-import { markerStorage } from '../data/markerStorage';
+import { Marker as MarkerType } from '../types';
+import { View, Dimensions } from 'react-native';
 import MapView, { Circle, Marker, Region } from 'react-native-maps';
 
-export const Map = () => {
-  //TODO: SEND MARKERS FROM OUTSIDE
-  //*Create pages for every screen
-  //*https://expo.github.io/router/docs/
+interface MapProps {
+  markers: MarkerType[]
+}
 
-  const [markers, setMarkers] = useState<MarkerType[]>();
+export const Map = (props: MapProps) => {
   const [region, setRegion] = useState<Region>(null);
   const [zoomLevel, setZoomLevel] = useState<number>(0);
 
 
   useEffect(() => {
-    const getMarkers = async () => {
-      return await markerStorage.getAll();
-    }
+    
 
     const getLocation = async () => {
       await Location.requestForegroundPermissionsAsync();
       return await Location.getCurrentPositionAsync();
     }
     
-    getMarkers().then(setMarkers);
     getLocation().then(location => {
       const { latitude, longitude } = location.coords;
       const region = { 
@@ -64,7 +59,7 @@ export const Map = () => {
           strokeColor='#00BFFF50'
         />
         {
-          markers?.map((marker, index) => 
+          props.markers?.map((marker, index) => 
             <Marker
               key={index}
               coordinate={{...marker}}

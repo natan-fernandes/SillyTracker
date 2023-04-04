@@ -1,16 +1,25 @@
 import tw from 'twrnc';
+import { Marker } from '../types';
 import * as Crypto from 'expo-crypto';
 import * as Location from 'expo-location';
 import { markerStorage } from '../data/markerStorage';
 import { View, Text, TouchableOpacity } from 'react-native'
 
-export const BottomBar = () => {
+interface BottomBarProps {
+  markers: Marker[],
+  setMarkers: React.Dispatch<React.SetStateAction<Marker[]>>
+}
+
+export const BottomBar = (props: BottomBarProps) => {
   const addMarker = async () => {
     const location = await Location.getCurrentPositionAsync();
-    markerStorage.add({
+    const marker: Marker = {
       ...location.coords,
       id: Crypto.randomUUID()
-    });
+    }
+
+    markerStorage.add(marker);
+    props.setMarkers([...props.markers, marker]);
   }
 
   return (
