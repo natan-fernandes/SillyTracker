@@ -3,7 +3,7 @@ import { Marker } from '../types';
 import * as Crypto from 'expo-crypto';
 import * as Location from 'expo-location';
 import { markerStorage } from '../data/markerStorage';
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native'
 
 interface BottomBarProps {
   markers: Marker[],
@@ -15,7 +15,8 @@ export const BottomBar = (props: BottomBarProps) => {
     const location = await Location.getCurrentPositionAsync();
     const marker: Marker = {
       ...location.coords,
-      id: Crypto.randomUUID()
+      id: Crypto.randomUUID(),
+      createdAt: new Date()
     }
 
     markerStorage.add(marker);
