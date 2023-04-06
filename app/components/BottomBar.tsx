@@ -1,9 +1,10 @@
 import tw from 'twrnc';
+import { DateTime } from 'luxon';
 import { Marker } from '../types';
 import * as Crypto from 'expo-crypto';
 import * as Location from 'expo-location';
 import { markerStorage } from '../data/markerStorage';
-import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 
 interface BottomBarProps {
   markers: Marker[],
@@ -16,7 +17,7 @@ export const BottomBar = (props: BottomBarProps) => {
     const marker: Marker = {
       ...location.coords,
       id: Crypto.randomUUID(),
-      createdAt: new Date()
+      createdAt: DateTime.now().toSeconds()
     }
 
     markerStorage.add(marker);

@@ -6,7 +6,7 @@ import { View, Dimensions } from 'react-native';
 import MapView, { Circle, LatLng, Marker, Polyline, Region } from 'react-native-maps';
 
 interface MapProps {
-  markers: MarkerType[]
+  markers: MarkerType[],
 }
 
 export const Map = (props: MapProps) => {
