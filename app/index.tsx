@@ -3,9 +3,8 @@ import { StatusBar } from 'expo-status-bar';
 import tw, { useDeviceContext } from 'twrnc';
 import { Map } from './pages/Map';
 
-//TODO: Create button component with <ActivityIndicator/> to wait loading
 //TODO: Add tracking in real time
-//TODO: Add filter markers by date
+//TODO: Create button component with <ActivityIndicator/> to wait loading
 
 export default function Page() {
   useDeviceContext(tw);
