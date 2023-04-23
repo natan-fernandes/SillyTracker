@@ -8,7 +8,9 @@ import { View, Text, TouchableOpacity } from 'react-native'
 
 interface BottomBarProps {
   markers: Marker[],
-  setMarkers: React.Dispatch<React.SetStateAction<Marker[]>>
+  setMarkers: React.Dispatch<React.SetStateAction<Marker[]>>,
+  isTracking: boolean,
+  setIsTracking: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const BottomBar = (props: BottomBarProps) => {
@@ -25,13 +27,23 @@ export const BottomBar = (props: BottomBarProps) => {
   }
 
   return (
-    <View style={tw`absolute z-10 bottom-5 h-20 w-full flex items-center justify-center`}>
+    <View style={tw`absolute z-10 bottom-5 h-20 w-full flex flex-row items-center justify-center gap-4`}>
       <TouchableOpacity 
         style={tw`bg-red-700 flex justify-center items-center p-3 rounded-lg`}
         onPress={addMarker}  
       >
         <Text style={tw`text-slate-100`}>
-          Adicionar marcador na posição atual
+          Adicionar ponto
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity 
+        style={tw`flex justify-center items-center p-3 rounded-lg ${props.isTracking ? 'bg-red-200' : 'bg-red-700'}`}
+        onPress={() => props.setIsTracking(!props.isTracking)}
+      >
+        <Text style={tw`${props.isTracking ? 'text-red-700 font-semibold' : 'text-slate-100'}`}>
+          {
+            props.isTracking ? 'Parar rastreamento' : 'Iniciar rastremento'
+          }
         </Text>
       </TouchableOpacity>
     </View>
